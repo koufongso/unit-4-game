@@ -103,6 +103,10 @@ function attack() {
         // mc atk increase
         mc_atk += atkBase;
 
+        // update attributes
+        $('.mc').attr("hp", mc_hp);
+        $('.mc').attr("atk", mc_atk);
+        $('.target').attr("hp", tar_hp);
         // update page
         update();
 
@@ -111,8 +115,9 @@ function attack() {
         if (mc_hp <= 0) {
             // lose
             mc_hp = 0;
-            setTimeout(function(){alert("GameOver!")}, 100)
-            newGame();
+            // alert("GameOver!")
+            setTimeout(function () { alert("GameOver!") }, 1)
+            setTimeout(newGame, 1);
             return;
         }
 
@@ -125,14 +130,10 @@ function attack() {
             avaiableTarget++;
         }
 
-        // update attributes
-        $('.mc').attr("hp", mc_hp);
-        $('.mc').attr("atk", mc_atk);
-        $('.target').attr("hp", tar_hp);
-
         if ($('.enemy').length == 0) {
-            setTimeout(function(){alert("You Win!")},100);
-            newGame();
+            // alert("You Win!")
+            setTimeout(function () { alert("You Win!") }, 1);
+            setTimeout(newGame, 1);
             return;
         }
     }
@@ -152,11 +153,10 @@ function cancel() {
 
 /* update mc, enemy, target current stat
 */
-
 function update() {
     console.log("update...")
     var p = $('.stat').parent();
-    // console.log(p);
+    console.log(p);
     for (var i = 0; i < p.length; i++) {
         // console.log(p[i]);
         $($('.hp')[i]).html("HP:" + p[i].getAttribute("hp"));
