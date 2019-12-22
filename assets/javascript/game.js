@@ -1,9 +1,9 @@
 // character database
 var characters = {
-    "swordsman": { id: 0, hp: 150, atk: 10, def: 10, img: "assets/images/swordsman.png" },
-    "lancer": { id: 1, hp: 120, atk: 10, def: 10, img: "assets/images/lancer.png" },
-    "archer": { id: 2, hp: 90, atk: 10, def: 20, img: "assets/images/archer.png" },
-    "wizard": { id: 3, hp: 80, atk: 50, def: 50, img: "assets/images/wizard.png" },
+    "swordsman": { id: 0, hp: 150, atk: 20, def: 10, img: "assets/images/swordsman.png" },
+    "lancer": { id: 1, hp: 150, atk: 10, def: 20, img: "assets/images/lancer.png" },
+    "archer": { id: 2, hp: 120, atk: 30, def: 5, img: "assets/images/archer.png" },
+    "wizard": { id: 3, hp: 50, atk: 50, def: 50, img: "assets/images/wizard.png" },
 };
 
 //mc stat
@@ -12,7 +12,7 @@ var avaiableTarget = 1;
 
 /* create the main character from the character database for user to select the main character(MC)*/
 function newGame() {
-    console.log("create new game...");
+    // console.log("create new game...");
     
     // reset all panel
     $('.reset_panel').empty();
@@ -60,7 +60,7 @@ function newGame() {
    rearrange the page
 */
 function start() {
-    console.log("start...");
+    // console.log("start...");
     // create all the div
     var wrap = $('<div>').addClass('del');
     $('#instruction').text("This is your main character");
@@ -102,8 +102,8 @@ function start() {
    move the target div to the target panel
 */
 function setTarget() {
-    console.log("set target...")
-    //when there is target spot, add target
+    // console.log("set target...")
+    // when there is target spot, add target
     if (avaiableTarget != 0) {
         $(this).addClass("target");
         $('.target_panel').append($('.target'));
@@ -125,7 +125,7 @@ function setTarget() {
    when no more enemy -> win, start new game 
 */
 function attack() {
-    console.log("attack!");
+    // console.log("attack!");
     // if target exist
     if ($('.target').length != 0) {
         var mc_hp = parseInt($('.mc').attr("hp"));
@@ -175,7 +175,7 @@ function attack() {
     move it back to the enemey panel
 */
 function cancel() {
-    console.log("cancel target");
+    // console.log("cancel target");
     // if target exist
     if ($('.target').length != 0) {
         $('.enemy_panel').append($('.target'));
@@ -187,7 +187,7 @@ function cancel() {
 /* update mc, enemy, target current stat
 */
 function update() {
-    console.log("update...")
+    // console.log("update...")
     var p = $('.stat').parent();
     // console.log(p);
     for (var i = 0; i < p.length; i++) {
