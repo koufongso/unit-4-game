@@ -1,9 +1,9 @@
 // character database
 var characters = {
-    "swordsman": { id: 0, hp: 120, atk: 20, def: 10, img: "assets/images/swordsman.png" },
-    "lancer": { id: 1, hp: 150, atk: 10, def: 20, img: "assets/images/lancer.png" },
+    "swordsman": { id: 0, hp: 150, atk: 10, def: 10, img: "assets/images/swordsman.png" },
+    "lancer": { id: 1, hp: 150, atk: 5, def: 20, img: "assets/images/lancer.png" },
     "archer": { id: 2, hp: 120, atk: 30, def: 5, img: "assets/images/archer.png" },
-    "wizard": { id: 3, hp: 50, atk: 50, def: 50, img: "assets/images/wizard.png" },
+    "wizard": { id: 3, hp: 50, atk: 65, def: 60, img: "assets/images/wizard.png" },
 };
 
 //mc stat
