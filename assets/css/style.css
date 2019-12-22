@@ -70,4 +70,5 @@ button{
 .target_panel{
     float:right;
     height: max-content;
+    height: 300px;
 }

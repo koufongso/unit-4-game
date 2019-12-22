@@ -171,6 +171,11 @@ function attack() {
     }
 }
 
+
+function predic(){
+
+}
+
 /* cancel the current target
     move it back to the enemey panel
 */
