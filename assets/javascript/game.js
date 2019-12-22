@@ -156,7 +156,7 @@ function cancel() {
 function update() {
     console.log("update...")
     var p = $('.stat').parent();
-    console.log(p);
+    // console.log(p);
     for (var i = 0; i < p.length; i++) {
         // console.log(p[i]);
         $($('.hp')[i]).html("HP:" + p[i].getAttribute("hp"));
