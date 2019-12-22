@@ -12,13 +12,20 @@ var avaiableTarget = 1;
 
 /* create the main character from the character database for user to select the main character(MC)*/
 function newGame() {
-    $('.reset_panel').empty(); //clear all panel content
-
     console.log("create new game...");
+    
+    // reset all panel
+    $('.reset_panel').empty();
+    $('.del').remove();
+    $('#instruction').text("Select one character as your main character");
+    $('.float_div').addClass('center_div').removeClass('float_div')
+
+    // reset all parameters
     atkBase = 0;
     avaiableTarget = 1;
-    var keys = Object.keys(characters);
 
+    // load characters from the List
+    var keys = Object.keys(characters);
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
         var character = $("<div>");
@@ -53,8 +60,31 @@ function newGame() {
    rearrange the page
 */
 function start() {
-    console.log("start...")
-    $('.character').off('click', start);        //turn off click event listener
+    console.log("start...");
+    // create all the div
+    var wrap = $('<div>').addClass('del');
+    $('#instruction').text("This is your main character");
+    var enemyDiv = $('<div>').addClass('panel').append("<h1>You need to defeat them, click to set/switch your target to attck</h1>");
+    var buttonDiv = $('<div>').addClass('panel action');
+    var butAtk = $('<button>').addClass('attack').text('attack');
+    var butCancel = $('<button>').addClass('cancel').text('cancel');
+    var targetDiv = $('<div>').addClass('panel target_panel del');
+    
+    enemyDiv.append($('<div>').addClass('enemy_panel reset_panel'));
+    buttonDiv.append(butAtk, butCancel);
+    targetDiv.append("<h1>Your current target</h1>");
+
+    wrap.append(enemyDiv, buttonDiv);
+    $('.center_div').append(wrap);
+    $('.center_div').addClass("float_div");
+    $('.center_div').removeClass("center_div");
+    $('.main').append(targetDiv);
+
+    // add eventlistener
+    $('.attack').on("click", attack);
+    $('.cancel').on("click", cancel);
+
+    $('.character').off('click', start);        //turn off start event listener
 
     // addjust class attribute
     $(this).addClass("mc");
@@ -64,19 +94,27 @@ function start() {
     $('.character').removeClass("character");
 
     $(".enemy").on("click", setTarget);         // add event listener
-    $('.enemy_panel').append($('.enemy'))       // rearrange 
+    $('.enemy_panel').append($('.enemy'))       // rearrange
 }
 
 
-/* add the target class to the selected enemey
+/* add the target class to the selected enemey or switch target
    move the target div to the target panel
 */
 function setTarget() {
-    // only add target when there are avaible spot for target
+    console.log("set target...")
+    //when there is target spot, add target
     if (avaiableTarget != 0) {
         $(this).addClass("target");
         $('.target_panel').append($('.target'));
         avaiableTarget--;
+    }else{
+        //cancel current target class
+        $('.enemy_panel').append($('.target'));
+        $('.target_panel').remove(".target");
+        $('.target').removeClass('target');
+        $(this).addClass("target");
+        $('.target_panel').append($('.target'));
     }
 }
 
@@ -87,6 +125,7 @@ function setTarget() {
    when no more enemy -> win, start new game 
 */
 function attack() {
+    console.log("attack!");
     // if target exist
     if ($('.target').length != 0) {
         var mc_hp = parseInt($('.mc').attr("hp"));
@@ -110,28 +149,21 @@ function attack() {
         // update page
         update();
 
-        // console.log(mc_hp);
         // combat result
+        // check mc hp, if less than 0, game over, start new game
         if (mc_hp <= 0) {
-            // lose
-            mc_hp = 0;
-            // alert("GameOver!")
             setTimeout(function () { alert("GameOver!") }, 1)
             setTimeout(newGame, 1);
             return;
         }
-
+        // check target hp, if less than 0, remove target, add target spot
         if (tar_hp <= 0) {
-            // target defeated
-            // remove current target
-            tar_hp = 0;
             $('.target').remove();
-            //reset 
             avaiableTarget++;
         }
 
+        // check remaining enemy, if 0 game win, start new game
         if ($('.enemy').length == 0) {
-            // alert("You Win!")
             setTimeout(function () { alert("You Win!") }, 1);
             setTimeout(newGame, 1);
             return;
@@ -143,10 +175,11 @@ function attack() {
     move it back to the enemey panel
 */
 function cancel() {
+    console.log("cancel target");
     // if target exist
     if ($('.target').length != 0) {
         $('.enemy_panel').append($('.target'));
-        $('.target').removeClass('target')
+        $('.target').removeClass('target');
         avaiableTarget++;
     }
 }
@@ -163,14 +196,6 @@ function update() {
         $($('.atk')[i]).html("ATK:" + p[i].getAttribute("atk"));
     }
 }
-
-window.onload = function () {
-    /* eventlistener*/
-    $('#attack').on("click", attack);
-    $('#cancel').on("click", cancel);
-}
-
-
 
 $(document).ready(function () {
     newGame();
